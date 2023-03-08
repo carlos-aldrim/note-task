@@ -1,4 +1,6 @@
 export enum PagesRoutes {
   home = "/",
-  notepad = "/notepad/:id",
+  add = "/notepad/add",
+  edit = "/notepad/edit/:id",
+  note = "/notepad/note/:id",
 };

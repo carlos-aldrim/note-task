@@ -11,6 +11,9 @@ export const Form = styled(FormControl)({
       backgroundColor: "#F5F5F5",
       borderRadius: "4px",
       borderColor: "transparent",
+      "&.MuiOutlinedInput-notchedOutline": {
+        borderColor: "transparent",
+      },
     },
     "&:hover fieldset": {
       borderColor: "transparent",

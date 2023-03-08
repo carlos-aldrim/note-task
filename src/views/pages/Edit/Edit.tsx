@@ -9,21 +9,25 @@ import {
   TextField,
   InputTag,
   Tag,
+  Footer,
 } from "../../../components";
 import SaveIcon from "@mui/icons-material/Save";
-import { Main, DateSumary, DataSumary, SaveButton } from "./Notepad.styles";
+import { Main, DateSumary, DataSumary, SaveButton } from "./Edit.styles";
 import { useLocation, useNavigate } from "react-router-dom";
-import { addNote } from "../../../store/projectSlicer";
-import { useDispatch } from "react-redux";
+import { updateNote } from "../../../store/projectSlicer";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store";
+import { Note, Project } from "../../../services/interface";
 
-export const Notepad: React.FC = () => {
-  const [startDate, setStartDate] = React.useState(moment(new Date()).format("YYYY-MM-DD"));
-  const [dueDate, setDueDate] = React.useState("");
+export const Edit: React.FC = () => {
+  const [startDate, setStartDate] = React.useState("");
+  const [dueDate, setDueDate] = React.useState<string | undefined>("");
   const [title, setTitle] = React.useState("");
   const [priority, setPriority] = React.useState("Normal");
-  const [description, setDescription] = React.useState("");
+  const [description, setDescription] = React.useState<string | undefined>("");
   const [tag, setTag] = React.useState("");
   const [tags, setTags] = React.useState<string[]>([]);
+  const [count, setCount] = React.useState(0);
   const priorityOptions = [
     { name: "Baixa", value: "Baixa" },
     { name: "Normal", value: "Normal" },
@@ -32,9 +36,30 @@ export const Notepad: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const [projectID] = React.useState(
+  const [noteID] = React.useState(
     Number(location.pathname.split("/").slice(-1)[0])
   );
+  const [projects, actuatProject] = useSelector(
+    (state: RootState): [Project[], number] => [
+      state.project.projects,
+      state.project.actuatProject,
+    ]
+  );
+
+  React.useEffect(() => {
+    const filteredNote = projects[actuatProject].notes.filter(note => note.id === noteID);
+    setTitle(filteredNote[0].title);
+    setStartDate(filteredNote[0].startDate);
+    setDueDate(filteredNote[0].dueDate);
+    setPriority(filteredNote[0].priority);
+    setDescription(filteredNote[0].description);
+    if(filteredNote[0].tags !== undefined) {
+      setTags(filteredNote[0].tags);
+      setCount(tags.length);
+    } else {
+      setCount(0);
+    }
+  }, []);
 
   const onChangeStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = moment
@@ -64,29 +89,43 @@ export const Notepad: React.FC = () => {
 
   const onKeyDownTag = (event: any) => {
     if (event.keyCode === 13) {
-      tags.push("#" + tag);
+      const newTags = [...tags];
+      newTags.push("#" + tag);
+      setTags(newTags);
       setTag("");
     }
+  };
+
+  const onClickAddTag = () => {
+    const newTags = [...tags];
+      newTags.push("#" + tag);
+      setTags(newTags);
+      setTag("");
   };
 
   const onTagsRemoveClick = (item: string) => () => {
     setTags(tags.filter((element) => element !== item));
   };
 
-  const onClickCompletedNote = () => {
+  const onClickEditNote = () => {
     if (title === "") {
       return;
     }
+    const id = noteID;
+    const state = "Novo";
     const newNote = {
+      id,
       title,
       description,
       startDate,
       dueDate,
-      tags,
       priority,
-    };
-    dispatch(addNote({ projectID, note: newNote }));
-    navigate("/");
+      state,
+      tags,
+    } as Note;
+    const projectID = projects[actuatProject].id;
+    dispatch(updateNote({ projectID, noteID, newNote }));
+    navigate("/notepad/note/" + id);
   };
 
   const onChangeDescriptionInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,6 +161,8 @@ export const Notepad: React.FC = () => {
             value={startDate}
             onChange={onChangeStartDate}
             required={true}
+            minDate={moment(new Date()).format("YYYY-MM-DD")}
+            maxDate={dueDate}
           />
           <DateInput
             name="due-date"
@@ -129,6 +170,7 @@ export const Notepad: React.FC = () => {
             value={dueDate}
             onChange={onChangeDueDate}
             required={false}
+            minDate={startDate}
           />
         </DateSumary>
         <TextField
@@ -141,21 +183,24 @@ export const Notepad: React.FC = () => {
           minRows={5}
         />
         <InputTag
-          disabled={tags.length < 10 ? false : true}
+          disabled={count < 10? false : true}
           onKeyDown={onKeyDownTag}
           value={tag}
           onChange={onChangeTagInput}
+          onClick={onClickAddTag}
         >
           {tags.map((item) => (
             <Tag onDelete={onTagsRemoveClick(item)} label={item} />
           ))}
         </InputTag>
         <SaveButton>
-          <FloatingActionButton onClick={onClickCompletedNote}>
+          <FloatingActionButton onClick={onClickEditNote}>
             <SaveIcon />
           </FloatingActionButton>
         </SaveButton>
       </Main>
+      <Footer/>
     </React.Fragment>
   );
 };
+

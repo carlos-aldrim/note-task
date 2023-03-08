@@ -9,3 +9,4 @@ export { InputTag } from "./InputTag";
 export { Tag } from "./Tag";
 export { Aside } from "./Aside";
 export { CardNote } from "./CardNote";
+export { Footer } from "./Footer";

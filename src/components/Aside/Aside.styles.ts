@@ -5,7 +5,7 @@ export const Menu = styled("div")({
   position: "sticky",
   zIndex: 1,
   top: "70px",
-  width: "15%",
+  width: "20%",
   minWidth: "100px",
   height: "100%",
   minHeight: "100vh",
@@ -27,15 +27,38 @@ export const MiddleDivider = styled(Divider)({
 });
 
 export const AddProject = styled("div")({
+  width: "100%",
   fontFamily: "Roboto",
   fontSize: "calc(0.5rem + 0.75vw)",
   fontWeight: 400,
   lineHeight: "130%",
   color: "#AEAEAE",
   cursor: "pointer",
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
 });
 
 export const Icon = styled(IconButton)({
   padding: 0,
   margin: "0px -25px 0px 5px",
+});
+
+export const AddButton = styled("div")({
+  backgroundColor: "#463497",
+  borderRadius: "100%",
+  width: "auto",
+  height: "auto",
+  padding: "2%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  "& svg": {
+    color: "#FFFFFF",
+    width: "0.5em",
+    height: "0.5em",
+  },
+  "&:action": {
+    opacity: 0.75,
+  },
 });

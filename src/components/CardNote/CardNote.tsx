@@ -1,11 +1,14 @@
 import React from "react";
-import { DeleteButton, Note, NoteDetails, TextLabel } from "./CardNote.styles";
+import { DateLabel, ButtonsNote, Note, NoteDetails, TextLabel } from "./CardNote.styles";
 import CloseIcon from "@mui/icons-material/Close";
+import EditIcon from "@mui/icons-material/Edit";
 
 interface CardNoteProps {
   title?: string;
   startDate?: string;
   dueDate?: string;
+  onClickRemove?: () => void;
+  onClickEdit?: () => void;
   onClick?: () => void;
 };
 
@@ -13,6 +16,8 @@ export const CardNote: React.FC<CardNoteProps> = ({
   title,
   startDate,
   dueDate,
+  onClickRemove,
+  onClickEdit,
   onClick,
 }) => {
   const newStartDate = startDate?.split("-").reverse().join("/");
@@ -20,13 +25,14 @@ export const CardNote: React.FC<CardNoteProps> = ({
 
   return (
     <Note>
-      <NoteDetails>
+      <NoteDetails onClick={onClick}>
         <TextLabel>{title}</TextLabel>
-        <TextLabel>{newStartDate}{newDueDate === "" ? newDueDate : " - " + newDueDate}</TextLabel>
+        <DateLabel>{newStartDate}{newDueDate === "" ? newDueDate : " - " + newDueDate}</DateLabel>
       </NoteDetails>
-      <DeleteButton onClick={onClick}>
-        <CloseIcon/>
-      </DeleteButton>
+      <ButtonsNote>
+        <EditIcon onClick={onClickEdit}/>
+        <CloseIcon onClick={onClickRemove}/>
+      </ButtonsNote>
     </Note>
   );
 };

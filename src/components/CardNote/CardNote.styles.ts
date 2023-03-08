@@ -14,6 +14,7 @@ export const Note = styled("div")({
   flexDirection: "row",
   justifyContent: "space-between",
   cursor: "pointer",
+  alignItems: "center",
   "&:active": {
     opacity: 0.75,
   },
@@ -28,17 +29,31 @@ export const TextLabel = styled(Typography)({
   cursor: "text",
 });
 
+export const DateLabel = styled(Typography)({
+  fontFamily: "Roboto",
+  fontSize: "calc(0.5rem + 0.25vw)",
+  fontWeight: 400,
+  lineHeight: "130%",
+  color: "#AEAEAE",
+  cursor: "text",
+});
+
 export const NoteDetails = styled("div")({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-evenly",
 });
 
-export const DeleteButton = styled("div")({
+export const ButtonsNote = styled("div")({
   display: "flex",
   alignItems: "center",
+  justifyContent: "space-between",
+  width: "2.5em",
+  height: "0.5em",
   "& svg": {
     cursor: "pointer",
+    width: "0.5em",
+    height: "0.5em",
     color: "#AEAEAE",
     "&:active": {
       opacity: 0.75,

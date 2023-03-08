@@ -8,12 +8,13 @@ interface optionInfo {
 };
 
 interface SelectionMenuProps {
-  name: string;
-  value: string;
-  label: string;
-  onChange: (event: SelectChangeEvent) => void;
+  name?: string;
+  value?: string;
+  label?: string;
+  onChange?: (event: SelectChangeEvent) => void;
   options: optionInfo[];
-  required: boolean;
+  required?: boolean;
+  disabled?: boolean;
 };
 
 export const SelectionMenu: React.FC<SelectionMenuProps> = ({
@@ -23,6 +24,7 @@ export const SelectionMenu: React.FC<SelectionMenuProps> = ({
   onChange,
   options,
   required,
+  disabled,
 }) => {
 
   return (
@@ -35,6 +37,7 @@ export const SelectionMenu: React.FC<SelectionMenuProps> = ({
         onChange={onChange}
         name={name}
         required={required}
+        disabled={disabled}
       >
         {options.map((item) => (
           <MenuItem value={item.value}>{item.name}</MenuItem>

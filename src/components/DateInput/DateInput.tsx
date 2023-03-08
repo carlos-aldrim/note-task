@@ -8,6 +8,8 @@ interface DateInputProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
   required?: boolean;
+  minDate?: string;
+  maxDate?: string;
 };
 
 export const DateInput: React.FC<DateInputProps> = ({
@@ -17,7 +19,11 @@ export const DateInput: React.FC<DateInputProps> = ({
   onChange,
   required,
   disabled,
+  minDate,
+  maxDate,
 }) => {
+  const min = minDate?.toString();
+  const max = maxDate?.toString();
 
   return (
     <Input
@@ -31,6 +37,11 @@ export const DateInput: React.FC<DateInputProps> = ({
         shrink: true,
       }}
       disabled={disabled}
+      defaultValue={""}
+      inputProps={{
+        min: min,
+        max: max,
+      }}
     />
   );
 };

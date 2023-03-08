@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import { Chip, Divider } from "@mui/material";
+import { Chip, Divider, IconButton } from "@mui/material";
 
 export const Container = styled("div")({
   backgroundColor: "#F5F5F5",
@@ -26,4 +26,9 @@ export const Partion = styled(Divider)({
 
 export const TagItem = styled(Chip)({
   margin: 5,
+});
+
+export const Icon = styled(IconButton)({
+  padding: 0,
+  margin: "0px -25px 0px 5px",
 });

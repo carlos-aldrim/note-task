@@ -1,2 +1,4 @@
 export { Home } from "./Home";
-export { Notepad } from "./Notepad";
+export { Add } from "./Add";
+export { Edit } from "./Edit";
+export { Note } from "./Note";
