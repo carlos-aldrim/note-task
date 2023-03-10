@@ -2,7 +2,7 @@ import { styled } from "@mui/system";
 import { Typography } from "@mui/material";
 
 export const Container = styled("div")({
-  height: "70px",
+  height: "56px",
   backgroundColor: "#463497",
   padding: "0px 1.5em",
   display: "flex",

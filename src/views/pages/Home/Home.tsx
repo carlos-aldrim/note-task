@@ -37,6 +37,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import { Note, Project } from "../../../services/interface";
 import ArrowForward from "@mui/icons-material/ArrowForward";
+import { title } from "process";
 
 export const Home: React.FC = () => {
   const [nameProject, setNameProject] = React.useState("");
@@ -97,15 +98,17 @@ export const Home: React.FC = () => {
   };
 
   const onClickAddNoteButton = () => {
-    if (actuatProject > 2) {
+    if (actuatProject !== 1 && actuatProject !== 2) {
       navigate("/notepad/add");
     }
   };
 
   const onKeyAddProject = (event: any) => {
-    if (event.keyCode === 13) {
-      dispatch(addProject(nameProject));
-      setNameProject("");
+    if(nameProject.length > 0) {
+      if (event.keyCode === 13) {
+        dispatch(addProject(nameProject));
+        setNameProject("");
+      }
     }
   };
 
@@ -173,6 +176,7 @@ export const Home: React.FC = () => {
           onClickRemove={onClickCloseInput}
           onClickAdd={onClickAddProject}
           value={nameProject}
+          disabled={nameProject.length > 0 ? false : true}
         >
           {projects.map((project, index) => (
             (edit !== project.id ? (<ProjectItem>
@@ -225,7 +229,7 @@ export const Home: React.FC = () => {
             ))}
           </ItemSumary>
         </Selection>
-        {actuatProject > 2 ? (
+        {actuatProject !== 1 && actuatProject !== 2 ? (
           <AddButton>
             <FloatingActionButton onClick={onClickAddNoteButton}>
               <AddIcon />

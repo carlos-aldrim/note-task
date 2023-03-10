@@ -1,4 +1,4 @@
-import { Divider, IconButton, Typography } from "@mui/material";
+import { Divider, IconButton, Typography, Button } from "@mui/material";
 import { styled } from "@mui/system";
 
 export const Menu = styled("div")({
@@ -44,12 +44,12 @@ export const Icon = styled(IconButton)({
   margin: "0px -25px 0px 5px",
 });
 
-export const AddButton = styled("div")({
+export const AddButton = styled(Button)({
   backgroundColor: "#463497",
   borderRadius: "100%",
-  width: "auto",
-  height: "auto",
-  padding: "2%",
+  width: "1.5em",
+  minWidth: "1.5em",
+  height: "1.5em",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",

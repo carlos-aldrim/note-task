@@ -8,7 +8,7 @@ import {
   Footer,
 } from "../../../components";
 import EditIcon from "@mui/icons-material/Edit";
-import { Main, DateSumary, DataSumary, SaveButton } from "./Note.styles";
+import { Main, DateSumary, DataSumary, EditButton } from "./Note.styles";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store";
@@ -100,11 +100,11 @@ export const Note: React.FC = () => {
         {tags.map((item) => (
           <Tag label={item} />
         ))}
-        <SaveButton>
+        <EditButton>
           <FloatingActionButton onClick={onClickEditNote}>
             <EditIcon />
           </FloatingActionButton>
-        </SaveButton>
+        </EditButton>
       </Main>
       <Footer/>
     </React.Fragment>

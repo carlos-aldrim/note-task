@@ -29,9 +29,9 @@ export const Title = styled("div")({
   maxHeight: "63.02px",
 });
 
-export const SaveButton = styled("div")({
+export const EditButton = styled("div")({
   zIndex: 100,
   position: "fixed",
-  bottom: 40,
+  bottom: "12%",
   right: 70,
 });

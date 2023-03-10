@@ -166,7 +166,7 @@ export const Add: React.FC = () => {
           ))}
         </InputTag>
         <SaveButton>
-          <FloatingActionButton onClick={onClickAddNote}>
+          <FloatingActionButton onClick={onClickAddNote} disabled={title.length > 0 ? false : true}>
             <SaveIcon />
           </FloatingActionButton>
         </SaveButton>

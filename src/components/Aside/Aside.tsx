@@ -12,6 +12,7 @@ interface AsideProps {
   onClickAdd?: () => void;
   children?: React.ReactNode;
   label?: string;
+  disabled?: boolean;
 };
 
 export const Aside: React.FC<AsideProps> = ({
@@ -22,6 +23,7 @@ export const Aside: React.FC<AsideProps> = ({
   children,
   label,
   onClickAdd,
+  disabled
 }) => {
 
   return (
@@ -34,7 +36,7 @@ export const Aside: React.FC<AsideProps> = ({
           value={value}
           endAdornment={<Icon onClick={onClickRemove}><CloseIcon/></Icon>}
         />
-        <AddButton onClick={onClickAdd}>
+        <AddButton onClick={onClickAdd} disabled={disabled}>
           <ArrowForward/>
         </AddButton>
       </AddProject>

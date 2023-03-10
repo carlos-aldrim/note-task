@@ -32,6 +32,6 @@ export const Title = styled("div")({
 export const SaveButton = styled("div")({
   zIndex: 100,
   position: "fixed",
-  bottom: 40,
+  bottom: "12%",
   right: 70,
 });

@@ -21,13 +21,16 @@ export const projectSlicer =  createSlice({
   initialState,
   reducers: {
     addProject: (state, { payload }) => {
-      const newProject = {
-        id: state.nextId,
-        name: payload,
-        notes: [] as Note[],
+      let filteredProject = state.projects.filter(project => project.name === payload);
+      if(filteredProject.length === 0) {
+        const newProject = {
+          id: state.nextId,
+          name: payload,
+          notes: [] as Note[],
+        };
+        state.nextId += 1;
+        state.projects.push(newProject);
       };
-      state.nextId += 1;
-      state.projects.push(newProject);
     },
     removeProject: (state, { payload }) => {
       const filteredProject = state.projects.filter(project => project.id === payload);
@@ -102,12 +105,14 @@ export const projectSlicer =  createSlice({
     todayNotes: (state) => {
       const currentDate =  moment(new Date()).format("YYYY-MM-DD");
       const newListToday: Note[] = [];
-      for (let a = 3; a < state.projects.length; a++) {
-        const notesProject = state.projects[a].notes;
-        for (let b = 0; b < notesProject.length; b++) {
-          const note = notesProject[b];
-          if (note.startDate === currentDate) {
-            newListToday.push(note);
+      for (let a = 0; a < state.projects.length; a++) {
+        if(a !== 1 && a!== 2) {
+          const notesProject = state.projects[a].notes;
+          for (let b = 0; b < notesProject.length; b++) {
+            const note = notesProject[b];
+            if (note.startDate === currentDate) {
+              newListToday.push(note);
+            }
           }
         }
       }
@@ -123,14 +128,16 @@ export const projectSlicer =  createSlice({
         dates.push(date);
       };
       dates.map((day: string) => {
-        for (let d = 3; d < state.projects.length; d++) {
-          const notesProject = state.projects[d].notes;
-          for (let e = 0; e < notesProject.length; e++) {
-            const note = notesProject[e];
-            if (note.startDate === day) {
-              const filteredElement = newListWeek.find(element => element.id === note.id);
-              if(filteredElement === undefined) {
-                newListWeek.push(note);
+        for (let d = 0; d < state.projects.length; d++) {
+          if(d !== 1 && d !== 2) {
+            const notesProject = state.projects[d].notes;
+            for (let e = 0; e < notesProject.length; e++) {
+              const note = notesProject[e];
+              if (note.startDate === day) {
+                const filteredElement = newListWeek.find(element => element.id === note.id);
+                if(filteredElement === undefined) {
+                  newListWeek.push(note);
+                }
               }
             }
           }
@@ -146,13 +153,15 @@ export const projectSlicer =  createSlice({
     },
     inboxNotes: (state) => {
       const newListInbox: Note[] = [];
-      for (let f = 3; f < state.projects.length; f++) {
-        const notesProject = state.projects[f].notes;
-        for (let g = 0; g < notesProject.length; g++) {
-          const note = notesProject[g];
-          const filteredElement = newListInbox.find(element => element.id === note.id);
-          if(filteredElement === undefined) {
-            newListInbox.push(note);
+      for (let f = 0; f < state.projects.length; f++) {
+        if(f !== 1 && f !== 2) {
+          const notesProject = state.projects[f].notes;
+          for (let g = 0; g < notesProject.length; g++) {
+            const note = notesProject[g];
+            const filteredElement = newListInbox.find(element => element.id === note.id);
+            if(filteredElement === undefined) {
+              newListInbox.push(note);
+            }
           }
         }
       }

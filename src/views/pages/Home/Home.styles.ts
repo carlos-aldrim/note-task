@@ -72,7 +72,7 @@ export const ProjectItem = styled("div")({
 export const AddButton = styled("div")({
   zIndex: 100,
   position: "fixed",
-  bottom: "3vw",
+  bottom: "12%",
   right: "5vw",
 });
 
